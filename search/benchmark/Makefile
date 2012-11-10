@@ -5,3 +5,6 @@ all:
 	dd if=/dev/zero of=${HOOK_NAME} count=100 2> /dev/null
 	chmod a+rw ${HOOK_NAME}
 	LD_PRELOAD=./hook.so ./test
+	gcc -g -I. report.c  -DHOOK_NAME=\"${HOOK_NAME}\" -o report
+	./report > html/x
+	cd html; sh x > result.html

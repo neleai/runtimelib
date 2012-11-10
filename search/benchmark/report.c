@@ -22,7 +22,7 @@ static __inline__ uint64_t rdtsc(void)
 
 
 int main(){ int i,j;
-  char *fname = "/tmp/libc_profile";
+  char *fname = HOOK_NAME;
   FILE *fi = fopen(fname,"r+");
 	void *sm= mmap(NULL,sizeof(disk_layout),PROT_READ|PROT_WRITE,MAP_SHARED,fileno(fi),0);
   if (sm){
@@ -88,19 +88,8 @@ int main(){ int i,j;
 			printf("echo '<br> success: %11d\n fail:     %11d\n <br>'",smp->success,smp->fail);
 
 
-		{			REPORT(strlen);		}
-		{			REPORT(strchr);		}
-		{			REPORT(strcmp);		}
-		{			REPORT(strcasecmp);		}
-	  {			REPORT(memchr);		}
-		{			REPORT(strcat);		}
-		{			REPORT(strcpy);		}
-		{			REPORT(memcpy);		}
-		{			REPORT(strrchr);		}
-		{			REPORT(strspn);		}
-		{			REPORT(strstr);		}
-		{			REPORT(strdup);		}
-
+		{			REPORT(bsearch);		}
+		
 
   printf("echo '<pre>'\n cat /proc/cpuinfo \n echo '</pre>'");
 

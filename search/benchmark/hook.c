@@ -35,8 +35,8 @@ static void const * const variants[]={bsearch2};
 void *
 bsearch (const void *key, const void *base, size_t nmemb, size_t size,
    int (*compar) (const void *, const void *)){
-  char * x=key;
-  int r = size;
+  char * x=base;
+  int r = nmemb;
   START_MEASURE(bsearch)
   void * f=bsearch2(key,base,nmemb,size,compar);
   END_MEASURE(bsearch)
