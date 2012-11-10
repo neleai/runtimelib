@@ -1,0 +1,12 @@
+<head>
+<title>Sorting and searching</title>
+</head>
+<body>
+<h1> Types and comparison functions</h1>
+We use optimized implementation for basic types. There are two ways how to use them. First way is to pass cmp_type as comparsion function. Second is to use macro function_type that supplies appropriate function. 
+<table>
+<tr><td>qsort(x,xn,sizeof(int),cmp_int)</td> <td>qsort_int(x,xn)</td></tr>
+<tr><td>qsort(x,xn,sizeof(char*),cmp_str)</td> <td>qsort_str(x,xn)</td></tr>
+<tr><td>qsort(x,xn,sizeof(char*),cmp_casestr)</td> <td>qsort_casestr(x,xn)</td></tr>
+<table>
+</body></html>
