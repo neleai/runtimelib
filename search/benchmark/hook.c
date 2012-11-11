@@ -17,6 +17,7 @@ bsearch (const void *key, const void *base, size_t nmemb, size_t size,
   if(compar!=intcmp) return bsearch_generic(key,base,nmemb,size,compar) ;
   char * x=base;
   int r = nmemb ? log(nmemb)/log(2) : 0;
+  if (r>63) r = 63;
   int fno = rand()%variants_no;
   START_MEASURE(bsearch)
   void * f=((void * (*)())variants[fno])(key,base,nmemb,size,compar) ;
