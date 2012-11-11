@@ -1,3 +1,13 @@
+#ifndef TPCMP
+#include <stdint.h>
+#define TPCMP(name,tp) \
+static inline int name##cmp(tp *a,tp *b){ \
+  if(*a>*b) return 1; \
+  if(*a<*b) return -1; \
+  return 0; \
+}
+#endif
+
 TPCMP(int,int)
 TPCMP(long,long)
 TPCMP(uint16,uint16_t)

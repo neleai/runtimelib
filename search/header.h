@@ -14,7 +14,7 @@ static inline int name##cmp(tp *a,tp *b){ \
 }
 #include "cmp.h"
 
-inline void * bsearch(const void *key, const void *start, size_t size, size_t psize,
+static inline void * bsearch(const void *key, const void *start, size_t size, size_t psize,
    int (*compar) (const void *, const void *)){
 
   if ( __builtin_constant_p(compar)){

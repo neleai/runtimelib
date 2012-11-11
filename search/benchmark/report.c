@@ -6,19 +6,7 @@
 #include <sys/types.h>
 #include <sys/mman.h>
 
-#include "layout.h"
-
-static __inline__ uint64_t rdtsc(void)
-{
-  uint32_t lo, hi;
-/*  __asm__ __volatile__ (
-    "        xorl %%eax,%%eax \n"
-    "        cpuid"      // serialize
-    ::: "%rax", "%rbx", "%rcx", "%rdx");*/
-  /* We cannot use "=A", since this would use %rax on x86_64 and return only the lower 32bits of the TSC */
-  __asm__ __volatile__ ("rdtsc" : "=a" (lo), "=d" (hi));
-  return (uint64_t)hi << 32 | lo;
-}
+#include "hook.c"
 
 
 int main(){ int i,j;
@@ -37,14 +25,22 @@ int main(){ int i,j;
 		printf("echo '");\
 		for(j=1;j<32;j++) printf("%i %11d\n",j,smp->cnt[i][0][j]);\
 		printf("'> " #fn "%i_1\n " ,i);}\
-    printf(GNUPLOT_SET "\n plot \"" #fn "0_1\" with lines lc rgb \"red\", \"" #fn "1_1\" with lines lc rgb \"blue\" '| gnuplot > " #fn "_1.png\n");\
+    printf(GNUPLOT_SET "\n plot");\
+    for(i=0;i<variants_no;i++){\
+      printf( "\"" #fn "%i_1\" with lines lc rgb \"%s\" title \"%s\",",i,variant_color[i],variant_names[i]);\
+    }\
+    printf("0 '| gnuplot > " #fn "_1.png\n");\
 		printf("echo '<img src=" #fn "_1.png></img>'\n ");\
 		printf("echo '<br>average time<br>'\n");\
 	    for(i=0;i<2;i++){\
 		printf("echo '");\
 	for(j=1;j<32;j++) printf("%i %11d\n",j,smp->time[i][0][j]/(smp->cnt[i][0][j]+1));\
 		printf("'> " #fn "%i_1\n " ,i);}\
-    printf(GNUPLOT_SET "\n plot \"" #fn "0_1\" with lines lc rgb \"red\", \"" #fn "1_1\" with lines lc rgb \"blue\" '| gnuplot > " #fn "_1t.png\n");\
+   printf(GNUPLOT_SET "\n plot");\
+    for(i=0;i<variants_no;i++){\
+      printf( "\"" #fn "%i_1\" with lines lc rgb \"%s\" title \"%s\",",i,variant_color[i],variant_names[i]);\
+    }\
+    printf("0 '| gnuplot > " #fn "_1t.png\n");\
 		printf("echo '<img src=" #fn "_1t.png></img>'\n");\
   if (b_##fn & B_SHOW_ALIGN){\
 	printf("\necho \"");\

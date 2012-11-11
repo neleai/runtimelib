@@ -1,12 +1,14 @@
 #include "../../hooks.h"
 
-#include "bsearch_libc.c"
-#include "bsearch_new.c"
 
+void *bsearch_libc();
+void *bsearch_generic();
 
 char* y;
 const int variants_no=2;
-static void const * const variants[]={bsearch_libc,bsearch_new};
+static void const * const variants[]={ bsearch_libc , bsearch_generic };
+static char* variant_names[]=        {"bsearch_libc","bsearch_generic"};
+static char* variant_color[]=        {"red"         ,"blue"           };          
 void *
 bsearch (const void *key, const void *base, size_t nmemb, size_t size,
    int (*compar) (const void *, const void *)){
