@@ -1,11 +1,7 @@
 #ifndef TPCMP
 #include <stdint.h>
 #define TPCMP(name,tp) \
-static inline int name##cmp(tp *a,tp *b){ \
-  if(*a>*b) return 1; \
-  if(*a<*b) return -1; \
-  return 0; \
-}
+ int name##cmp(tp *a,tp *b);
 #endif
 
 TPCMP(int,int)

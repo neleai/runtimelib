@@ -41,10 +41,10 @@ inline int name##cmp(tp *a,tp *b){ \
 
 #include "cmp.h"
 
-#define TPCMP(name,type) void* bsearch_##name(const void *key, const void *start, size_t size){\
+#define TPCMP(name,type) void* bsearch_##name(const void *key, const void *start, size_t size,size_t psize,int (*cmp) (const void *, const void *)){\
   return bsearch_generic(key,start,size,sizeof(type),(int (*)(const void *, const void *)) name##cmp);\
 } \
-void* lsearch_##name(const void *key, const void *start, size_t size){\
+void* lsearch_##name(const void *key, const void *start, size_t size,size_t psize,int (*cmp) (const void *, const void *)){\
   return lsearch_generic(key,start,size,sizeof(type),(int (*)(const void *, const void *)) name##cmp);\
 }
 
