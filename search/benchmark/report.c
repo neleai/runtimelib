@@ -21,7 +21,7 @@ int main(){ int i,j;
 		printf("\necho '<h1>" #fn "</h1>'\n");\
 		prof_str *smp = &(lay->fn);\
 		printf("echo '<br>number of calls<br>'\n");\
-    for(i=0;i<2;i++){\
+    for(i=0;i<variants_no;i++){\
 		printf("echo '");\
 		for(j=1;j<32;j++) printf("%i %11d\n",j,smp->cnt[i][0][j]);\
 		printf("'> " #fn "%i_1\n " ,i);}\
@@ -32,7 +32,7 @@ int main(){ int i,j;
     printf("0 '| gnuplot > " #fn "_1.png\n");\
 		printf("echo '<img src=" #fn "_1.png></img>'\n ");\
 		printf("echo '<br>average time<br>'\n");\
-	    for(i=0;i<2;i++){\
+	    for(i=0;i<variants_no;i++){\
 		printf("echo '");\
 	for(j=1;j<32;j++) printf("%i %11d\n",j,smp->time[i][0][j]/(smp->cnt[i][0][j]+1));\
 		printf("'> " #fn "%i_1\n " ,i);}\

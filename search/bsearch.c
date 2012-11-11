@@ -33,7 +33,7 @@ lsearch_generic (const void *key, const void *s, size_t size, size_t psize,
 
 
 #define TPCMP(name,tp) \
-static inline int name##cmp(tp *a,tp *b){ \
+inline int name##cmp(tp *a,tp *b){ \
   if(*a>*b) return 1; \
   if(*a<*b) return -1; \
   return 0; \
