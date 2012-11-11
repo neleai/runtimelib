@@ -1,6 +1,6 @@
  typedef struct {
- uint64_t cnt[3][34];
- uint64_t time[3][34];
+ uint64_t cnt[2][3][64];
+ uint64_t time[2][3][64];
  uint64_t needle[3][34];
 	uint64_t delay[64];
  uint64_t aligns[64];

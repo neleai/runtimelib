@@ -43,15 +43,8 @@ __attribute__((destructor)) static void save_cnt(){ int i,j;
 	prof.fn.delay[ 63-__builtin_clzl(prof.fn.start-prof.fn.last) ]++;\
   size_t r2= (b_##fn & B_BYTEWISE_SIZE) ? r\
     :((size_t)x+r)/16-((size_t)x)/16+1;\
-  if(r2>=1000) r2=999;\
-  prof.fn.cnt[2][r2/30]++;\
-	prof.fn.time[2][r2/30]+=ts-prof.fn.start;\
-	if(r2>=100) r2=99;\
-  prof.fn.cnt[1][r2/3]++;\
-	prof.fn.time[1][r2/3]+=ts-prof.fn.start;\
-	if(r2>=10) r2=9;\
-  prof.fn.cnt[0][r2]++;\
-	prof.fn.time[0][r2]+=ts-prof.fn.start;\
+  prof.fn.cnt[fno][0][r]++;\
+	prof.fn.time[fno][0][r]+=ts-prof.fn.start;\
   prof.fn.aligns[(b_## fn & B_REL_ALIGN) ? (x-y)%64 : ((uint64_t) x)%64]++;\
 	prof.fn.success++;\
 	}\

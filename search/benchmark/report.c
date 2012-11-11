@@ -33,41 +33,19 @@ int main(){ int i,j;
 		printf("\necho '<h1>" #fn "</h1>'\n");\
 		prof_str *smp = &(lay->fn);\
 		printf("echo '<br>number of calls<br>'\n");\
+    for(i=0;i<2;i++){\
 		printf("echo '");\
-		for(j=3;j<30;j++) printf("%f %11d\n",j/3.0,smp->cnt[0][j/3]);\
-		printf("'> " #fn "_1\n " GNUPLOT_SET "\n plot \"" #fn "_1\" with lines'| gnuplot > " #fn "_1.png\n");\
-		printf("echo '<img src=" #fn "_1.png></img>'\n echo '");\
-		for(j=0;j<34;j++) printf("%i %11d\n",3*j,smp->cnt[1][j]);\
-		printf("'> " #fn "_10\n " GNUPLOT_SET "\n plot \"" #fn "_10\" with lines'| gnuplot > " #fn "_10.png\n");\
-		printf("echo '<img src=" #fn "_10.png></img>'\n echo '");\
-		for(j=0;j<34;j++) printf("%i %11d\n",30*j,smp->cnt[2][j]);\
-		printf("'> " #fn "_100\n " GNUPLOT_SET "\n plot \"" #fn "_100\" with lines'| gnuplot > " #fn "_100.png\n");\
-		printf("echo '<img src=" #fn "_100.png></img>'\n");\
-    printf("echo '<br> Calls in first 4 blocks: %f%% <br>'\n",100*(smp->cnt[0][1]+smp->cnt[0][2]+smp->cnt[0][3]+smp->cnt[0][4]+0.0)/(smp->success+smp->fail));\
+		for(j=1;j<32;j++) printf("%i %11d\n",j,smp->cnt[i][0][j]);\
+		printf("'> " #fn "%i_1\n " ,i);}\
+    printf(GNUPLOT_SET "\n plot \"" #fn "0_1\" with lines lc rgb \"red\", \"" #fn "1_1\" with lines lc rgb \"blue\" '| gnuplot > " #fn "_1.png\n");\
+		printf("echo '<img src=" #fn "_1.png></img>'\n ");\
 		printf("echo '<br>average time<br>'\n");\
+	    for(i=0;i<2;i++){\
 		printf("echo '");\
-		for(j=3;j<27;j++) printf("%f %11d\n",j/3.0,smp->time[0][j/3]/(smp->cnt[0][j/3]+1));\
-		printf("'> " #fn "_1t\n " GNUPLOT_SET "\n set ylabel \"cycles\" \n plot \"" #fn "_1t\" with lines'| gnuplot > " #fn "_1t.png\n");\
-		printf("echo '<img src=" #fn "_1t.png></img>'\n echo '");\
-		for(j=0;j<30;j++) printf("%i %11d\n",j*3,smp->time[1][j]/(smp->cnt[1][j]+1));\
-		printf("'> " #fn "_10t\n " GNUPLOT_SET "\n set ylabel \"cycles\" \n plot \"" #fn "_10t\" with lines'| gnuplot > " #fn "_10t.png\n");\
-		printf("echo '<img src=" #fn "_10t.png></img>'\n echo '");\
-		for(j=0;j<30;j++) printf("%i %11d\n",30*j,smp->time[2][j]/(smp->cnt[2][j]+1));\
-		printf("'> " #fn "_100t\n " GNUPLOT_SET "\n set ylabel \"cycles\" \n plot \"" #fn "_100t\" with lines'| gnuplot > " #fn "_100t.png\n");\
-		printf("echo '<img src=" #fn "_100t.png></img>'\n");\
-    if(b_##fn & B_NEEDLE) { \
-	 	printf("echo '<br>needle size<br>'\n");\
-		printf("echo '");\
-		for(j=0;j<27;j++) printf("%f %11d\n",j/3.0,smp->needle[0][j]);\
-		printf("'> " #fn "_1n\n " GNUPLOT_SET "\n set ylabel \"bytes\" \n plot \"" #fn "_1n\" with lines'| gnuplot > " #fn "_1n.png\n");\
-		printf("echo '<img src=" #fn "_1n.png></img>'\n echo '");\
-		for(j=0;j<30;j++) printf("%i %11d\n",j*3,smp->needle[1][j]);\
-		printf("'> " #fn "_10n\n " GNUPLOT_SET "\n set ylabel \"bytes\" \n plot \"" #fn "_10n\" with lines'| gnuplot > " #fn "_10n.png\n");\
-		printf("echo '<img src=" #fn "_10n.png></img>'\n echo '");\
-		for(j=0;j<30;j++) printf("%i %11d\n",30*j,smp->needle[2][j]);\
-		printf("'> " #fn "_100n\n " GNUPLOT_SET "\n set ylabel \"bytes\" \n plot \"" #fn "_100n\" with lines'| gnuplot > " #fn "_100n.png\n");\
-		printf("echo '<img src=" #fn "_100n.png></img>'\n");\
-    }\
+	for(j=1;j<32;j++) printf("%i %11d\n",j,smp->time[i][0][j]/(smp->cnt[i][0][j]+1));\
+		printf("'> " #fn "%i_1\n " ,i);}\
+    printf(GNUPLOT_SET "\n plot \"" #fn "0_1\" with lines lc rgb \"red\", \"" #fn "1_1\" with lines lc rgb \"blue\" '| gnuplot > " #fn "_1t.png\n");\
+		printf("echo '<img src=" #fn "_1t.png></img>'\n");\
   if (b_##fn & B_SHOW_ALIGN){\
 	printf("\necho \"");\
 		for(i=0;i<64;i++) {\

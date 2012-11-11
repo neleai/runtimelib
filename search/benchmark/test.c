@@ -1,12 +1,14 @@
 #include "../cmp.h"
 static int r_seed;
-int ary[1000001];
+#define SIZE (1<<25)
+int ary[SIZE];
 
-int main(){int i,j,k,no;
-  for(i=0;i<1000000;i++)
+int main(){int i,j,k,no,pow;
+  for(i=0;i<SIZE;i++)
     ary[i]=i;
-  for(i=0;i<1000000;i++){
-    no=rand_r(&r_seed)%1000000; 
+  for(i=0;i<100000;i++){
+    pow=rand_r(&r_seed)%25; 
+    no = rand_r(&r_seed)%(1<<pow);
     k=no ? rand_r(&r_seed)%no : 0;
     bsearch(&k,ary,no,sizeof(int),intcmp);
   }
