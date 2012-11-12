@@ -3,8 +3,8 @@
 inline void * 
 bsearch_generic (const void *key, const void *start, size_t size, size_t psize,
    int (*cmp) (const void *, const void *)){
-  int steps=31-__builtin_clz(size);
-  while(steps--){
+  if (!size) return NULL;
+  while(size>1){
     int size2=size/2;
 /* do not add something like this - too slow
    if(start[size2]==x) return start;
