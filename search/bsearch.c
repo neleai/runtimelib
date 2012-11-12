@@ -6,10 +6,7 @@ bsearch_generic (const void *key, const void *start, size_t size, size_t psize,
   if (!size) return NULL;
   while(size>1){
     int size2=size/2;
-/* do not add something like this - too slow
-   if(start[size2]==x) return start;
-*/
-    if(cmp(key,start+psize*size2)>0){
+    if(cmp(key,start+psize*size2)<0){
       size=size2;
     } else {
       start+=psize*size2;

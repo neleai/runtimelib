@@ -1,2 +1,3 @@
 all: 
-	gcc bsearch.c -O3 -S
+	gcc bsearch.c -fPIC -O3 -S
+	gcc lsearch.c -fPIC -O3 -S
