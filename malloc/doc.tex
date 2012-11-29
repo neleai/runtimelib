@@ -1,0 +1,9 @@
+First step identify bottlenecks
+
+synchronization.
+
+Luckily most of applications are single threaded so no synchronization is necessary. There are several solutions
+
+1. Ideal solution - Let cpu and kernel handle that. We could add a flag that signals page as private so atomic instructions do not have to communicate with other cores. This has advantage that no modification of existing binaries is needed.
+
+2. second best solution - all you need to do is recompilation. We compile our function twice, in single thread case we replace locking atomic instructions by nonlocking ones. Our functions consist from indirect jump to appropriate function and we change these pointers when first thread is created. 
