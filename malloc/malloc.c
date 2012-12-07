@@ -10,32 +10,40 @@ typedef struct header{
   struct header *next;
 } header;
 
-header *pool16;
+header *small_pool[8];
+
+header *alloc_block(int size){
+  header *h;
+  posix_memalign((void **) &addr,512,512*size);
+  h->CHECKSUM=CHECKSUM;
+  h->sizes=size;
+  h->mask=(-1)<<((sizeof(header)+size-1)/size);
+  h->next=NULL;
+  return h;
+}
 
 void *malloc_wrap(size_t size){
-  size=(size+15)&(~15); /*Align request to 16 bytes*/
-  if(size==16){
-    if(!pool16) {
-      posix_memalign((void**)&pool16,1024,1024);
-      pool16->checksum=CHECKSUM;
-      pool16->sizes=16;
-      pool16->mask=(-1)<<(sizeof(header)/16);
-      pool16->next=NULL;
-    }
-    uint64_t mask=pool16->mask;
+  size=(size+7)/8;
+  if (size<=8){
+    if(!small_pool[size])
+      small_pool[size]=alloc_block(size);
+    void *h=small_pool[size];
+    uint64_t mask=h->mask;
     int shift=__builtin_ctz(mask);
     uint64_t newmask=mask-(1<<shift);
-    
-    /* TODO use atomic compare and swap */
-    pool16->mask = newmask;
-    void *p=((void*) pool16)+shift*16;
-    if(!pool16->mask) pool16=pool16->next;
-    return p;
-  } else return malloc(size);
+    h->mask=newmask;
+    if(1){//TODO atomic operation
+      if(!h->mask)
+        small_pool[size]=h->next;
+      void *p= ((void *)h)+8*size*shift;
+      return p;
+    }
+  }else{
+  }
 }
 
 void free_wrap(void *ptr){
-  header *h = (header*)(((size_t)ptr)&(~1023));
+  header *h = (header*)(((size_t)ptr)&(~512));
   if (h->checksum==CHECKSUM) {
     if (!h->mask) {
       h->next=pool16;
