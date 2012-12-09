@@ -16,23 +16,23 @@ aesrand:
   movdqa %xmm3,%xmm7
 
   aesenc %xmm4,%xmm0
-  aesenc %xmm5,%xmm1
-  aesenc %xmm6,%xmm2
-  aesenc %xmm7,%xmm3
+  aesenc %xmm4,%xmm1
+  aesenc %xmm4,%xmm2
+  aesenc %xmm4,%xmm3
 
-  aesenc %xmm4,%xmm0
+  aesenc %xmm5,%xmm0
   aesenc %xmm5,%xmm1
-  aesenc %xmm6,%xmm2
-  aesenc %xmm7,%xmm3
+  aesenc %xmm5,%xmm2
+  aesenc %xmm5,%xmm3
 
-  aesenc %xmm4,%xmm0
-  aesenc %xmm5,%xmm1
+  aesenc %xmm6,%xmm0
+  aesenc %xmm6,%xmm1
   aesenc %xmm6,%xmm2
-  aesenc %xmm7,%xmm3
+  aesenc %xmm6,%xmm3
 
-  aesenc %xmm4,%xmm0
-  aesenc %xmm5,%xmm1
-  aesenc %xmm6,%xmm2
+  aesenc %xmm7,%xmm0
+  aesenc %xmm7,%xmm1
+  aesenc %xmm7,%xmm2
   aesenc %xmm7,%xmm3
 
   movdqa %xmm0,   (%rax)
